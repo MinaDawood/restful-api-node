@@ -1,18 +1,22 @@
 const express = require('express');
 const mongoose = require('mongoose');
+require('dotenv/config');
+const postsRoute = require('./routes/posts');
 
 const app = express();
 
 // Middlewares
+app.use(express.json());
 
 // Routes
-app.get('/', (req, res) => {});
+app.use('/posts', postsRoute);
 
 // Connect to DB
 mongoose.connect(
-  'mongodb+srv://mina:l0zirpbhmjccUgq6@cluster0.uigt3.mongodb.net/restful-api-node?retryWrites=true&w=majority',
+  process.env.DB_CONNECTION,
   {
     useNewUrlParser: true,
+    useUnifiedTopology: true,
   },
   () => {
     console.log('Connected To MongoDB');
